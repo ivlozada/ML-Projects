@@ -8,7 +8,7 @@ current_time = str(time.time())
 
 tensorboard = TensorBoard(log_dir='../../Logs/{}'.format(current_time))
 earlyStopping = EarlyStopping(monitor='val_loss', patience=10, verbose=0, mode='min')
-mcp_save = ModelCheckpoint('../../Models/Trained-Model-ML-' + current_time, save_best_only=True, monitor='val_loss', mode='min')
+mcp_save = ModelCheckpoint('../../Models/NN_Models/Trained-Model-ML-' + current_time, save_best_only=True, monitor='val_loss', mode='min')
 
 data = pd.read_excel('../../Datasets/DataSet-2022-23.xlsx')
 scores = data['Score']
