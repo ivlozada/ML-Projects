@@ -1,16 +1,23 @@
 import requests
+import shutil
 import os
 
-season = "2022-2023"
-url = f"https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%20{season.replace('-', '')}.xlsx"
+base_url_odds = "https://www.sportsbookreviewsonline.com/scoresoddsarchives/nba/nba%20odds%2020"
 
-response = requests.get(url)
+season = ["2008-23"]
 
-directory = "../../Odds-Data"
-if not os.path.exists(directory):
-        os.makedirs(directory)
+start_year = int("20"+((str(season[0])[+2:]).split("-"))[0])
+end_year = int("20"+((str(season[0])[+2:]).split("-"))[1])
 
-        file_path = os.path.join(directory, f"nba_odds_{season}.xlsx")
-        with open(file_path, "wb") as f:
-                f.write(response.content)
+for year in range(start_year, end_year+1):
+    season = str(year)[-2:] + '-' + str(year+1)[-2:]
+    url_odds = base_url_odds + season + '.xlsx'
+    response = requests.get(url_odds)
+    open(f"nba_odds_20{season}.xlsx", "wb").write(response.content)
 
+
+destination_folder = "../../Odds-Data"
+for year in range(start_year, end_year+1):
+   season = str(year)[-2:] + '-' + str(year+1)[-2:]
+   filename = f"nba_odds_20{season}.xlsx"
+   shutil.move(filename, os.path.join(destination_folder, filename))
