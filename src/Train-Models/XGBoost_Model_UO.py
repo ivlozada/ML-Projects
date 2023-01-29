@@ -36,4 +36,5 @@ for x in tqdm(range(100)):
 
     acc = round(accuracy_score(y_test, y), 3) * 100
     print(acc)
-    model.save_model('../../Models/XGBoost_{}%_UO-6.json'.format(acc))
+    #model.save_model('../../Models/XGBoost_{}%_UO-6.json'.format(acc))
+    model.save('../../Models/XGBoost_{}%_UO-6.json'.format(acc))
